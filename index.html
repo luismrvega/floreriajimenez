@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Florería Jiménez | Recordatorio de fechas especiales</title>
+<meta name="description" content="Recibe gratis un calendario de fechas clave, avisos por correo 7 días antes y 10 % de descuento en tu primer pedido.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --salvia:#5B7B5A;
+    --salvia-claro:#DEE8D7;
+    --rosa:#E8A5B3;
+    --rosa-claro:#F8E2E6;
+    --crema:#FBF5EC;
+    --vino:#8C2F4B;
+    --vino-oscuro:#6F2239;
+    --dorado:#C9A25A;
+    --tinta:#332D30;
+    --gris:#8F8689;
+    --borde:#E0D3C6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Lato',system-ui,sans-serif;color:var(--tinta);background:#fff;line-height:1.5;-webkit-font-smoothing:antialiased}
+  h1,h2,.marca,.btn,.etiqueta{font-family:'Poppins',system-ui,sans-serif}
+
+  /* ---------- Encabezado mínimo ---------- */
+  .top{background:#fff;border-bottom:1px solid #f0e8de}
+  .top-in{max-width:1180px;margin:0 auto;padding:18px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .marca{display:flex;align-items:center;gap:10px;color:var(--vino);font-weight:700;font-size:1.15rem;text-decoration:none}
+  .marca svg{width:34px;height:34px}
+  .menu{display:flex;align-items:center;gap:28px}
+  .menu a{color:var(--tinta);text-decoration:none;font-family:'Poppins',sans-serif;font-weight:500;font-size:.95rem}
+  .menu a:hover{color:var(--vino)}
+  .pedido{background:var(--salvia);color:#fff!important;padding:9px 22px;border-radius:999px;font-weight:600!important}
+  .pedido:hover{background:#4b6a4a}
+
+  /* ---------- Hero ---------- */
+  .hero{position:relative;background:var(--crema);overflow:hidden}
+  .hero-in{max-width:1180px;margin:0 auto;padding:56px 24px 72px;display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;position:relative;z-index:1}
+  .etiqueta{display:inline-block;background:var(--rosa-claro);color:var(--vino);font-weight:500;font-size:.8rem;letter-spacing:.06em;padding:9px 22px;border-radius:999px;margin-bottom:22px}
+  h1{color:var(--vino);font-weight:700;font-size:clamp(2.2rem,4.6vw,3.4rem);line-height:1.12;letter-spacing:-.01em;margin-bottom:22px}
+  .apoyo{font-size:1.25rem;max-width:34em;margin-bottom:28px}
+  .ventajas{list-style:none;display:grid;gap:14px}
+  .ventajas li{display:flex;align-items:center;gap:14px;font-size:1.2rem}
+  .check{flex:none;width:34px;height:34px;border-radius:50%;background:var(--salvia-claro);display:grid;place-items:center}
+  .check svg{width:18px;height:18px}
+
+  /* ---------- Formulario ---------- */
+  .tarjeta{background:#fff;border:1px solid var(--borde);border-radius:24px;padding:34px 34px 26px;box-shadow:6px 8px 0 #ece1d4,0 18px 40px rgba(140,47,75,.08)}
+  .tarjeta h2{color:var(--vino);font-size:1.5rem;text-align:center;font-weight:700}
+  .sub{text-align:center;color:var(--gris);margin:2px 0 22px}
+  .campo{margin-bottom:18px}
+  label{display:block;font-weight:700;font-size:1rem;margin-bottom:7px}
+  input{width:100%;font:inherit;font-size:1.05rem;padding:14px 16px;border:2px solid #d3c7bb;border-radius:12px;background:#fdfbf8;color:var(--tinta);transition:border-color .15s,box-shadow .15s}
+  input::placeholder{color:#a79e98}
+  input:focus{outline:none;border-color:var(--vino);box-shadow:0 0 0 4px rgba(140,47,75,.14)}
+  .btn{width:100%;margin-top:6px;border:0;cursor:pointer;background:var(--vino);color:#fff;font-weight:700;font-size:1rem;letter-spacing:.02em;padding:18px 20px;border-radius:999px;transition:background .15s,transform .1s}
+  .btn:hover{background:var(--vino-oscuro)}
+  .btn:active{transform:translateY(1px)}
+  .btn:focus-visible{outline:3px solid var(--dorado);outline-offset:3px}
+  .legal{text-align:center;color:var(--gris);font-size:.95rem;margin-top:14px}
+  .gracias{display:none;text-align:center;padding:30px 6px}
+  .gracias h2{margin-bottom:10px}
+  .gracias p{font-size:1.1rem}
+  .tarjeta.enviado form{display:none}
+  .tarjeta.enviado .gracias{display:block}
+  .tarjeta.enviado .sub,.tarjeta.enviado>h2{display:none}
+
+  /* ---------- Decoración floral ---------- */
+  .flor{position:absolute;z-index:0;pointer-events:none}
+  .f1{width:130px;right:-30px;top:40px;opacity:.9}
+  .f2{width:70px;right:14px;top:150px}
+  .f3{width:110px;left:-34px;bottom:30px}
+
+  /* ---------- Franja de confianza ---------- */
+  .confianza{background:var(--salvia-claro)}
+  .confianza-in{max-width:1180px;margin:0 auto;padding:34px 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .item{display:flex;align-items:center;gap:14px;justify-content:center}
+  .item .ico{flex:none;width:52px;height:52px;border-radius:50%;background:var(--salvia);display:grid;place-items:center}
+  .item .ico svg{width:30px;height:30px}
+  .item strong{display:block;font-family:'Poppins',sans-serif;font-size:1.1rem}
+  .item span{font-size:1.05rem}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:900px){
+    .hero-in{grid-template-columns:1fr;gap:36px;padding-top:40px}
+    .menu a:not(.pedido){display:none}
+    .confianza-in{grid-template-columns:1fr;gap:18px}
+    .item{justify-content:flex-start}
+    .f1,.f2{opacity:.5}
+  }
+  @media (max-width:480px){
+    .tarjeta{padding:26px 20px 22px}
+    .apoyo,.ventajas li{font-size:1.1rem}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<!-- Símbolos reutilizables -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="flor-rosa" viewBox="0 0 100 100">
+      <g fill="#E8A5B3"><circle cx="50" cy="20" r="21"/><circle cx="71" cy="29" r="21"/><circle cx="80" cy="50" r="21"/><circle cx="71" cy="71" r="21"/><circle cx="50" cy="80" r="21"/><circle cx="29" cy="71" r="21"/><circle cx="20" cy="50" r="21"/><circle cx="29" cy="29" r="21"/></g>
+      <circle cx="50" cy="50" r="17" fill="#C9A25A"/>
+    </symbol>
+    <symbol id="flor-clara" viewBox="0 0 100 100">
+      <g fill="#F8E2E6"><circle cx="50" cy="20" r="21"/><circle cx="71" cy="29" r="21"/><circle cx="80" cy="50" r="21"/><circle cx="71" cy="71" r="21"/><circle cx="50" cy="80" r="21"/><circle cx="29" cy="71" r="21"/><circle cx="20" cy="50" r="21"/><circle cx="29" cy="29" r="21"/></g>
+      <circle cx="50" cy="50" r="17" fill="#C9A25A"/>
+    </symbol>
+    <symbol id="flor-blanca" viewBox="0 0 100 100">
+      <g fill="#fff"><circle cx="50" cy="22" r="19"/><circle cx="76" cy="40" r="19"/><circle cx="66" cy="72" r="19"/><circle cx="34" cy="72" r="19"/><circle cx="24" cy="40" r="19"/></g>
+      <circle cx="50" cy="50" r="14" fill="#C9A25A"/>
+    </symbol>
+    <symbol id="ok" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="#5B7B5A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="top-in">
+    <a class="marca" href="#" aria-label="Florería Jiménez, inicio">
+      <svg viewBox="0 0 100 100" aria-hidden="true"><use href="#flor-rosa"/></svg>
+      Florería Jiménez
+    </a>
+    <nav class="menu" aria-label="Principal">
+      <a href="#">Ramos</a>
+      <a href="#">Plantas</a>
+      <a href="#">Contacto</a>
+      <a class="pedido" href="#">Mi pedido</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <svg class="flor f1" viewBox="0 0 100 100" aria-hidden="true"><use href="#flor-clara"/></svg>
+    <svg class="flor f2" viewBox="0 0 100 100" aria-hidden="true"><use href="#flor-rosa"/></svg>
+    <svg class="flor f3" viewBox="0 0 100 100" aria-hidden="true"><use href="#flor-clara"/></svg>
+
+    <div class="hero-in">
+      <div class="texto">
+        <span class="etiqueta">GUÍA + RECORDATORIO GRATIS</span>
+        <h1>Nunca más olvides<br>una fecha especial</h1>
+        <p class="apoyo">Te avisamos con tiempo y te sugerimos el ramo perfecto para cada ocasión, para que siempre llegues con el detalle correcto.</p>
+        <ul class="ventajas">
+          <li><span class="check"><svg><use href="#ok"/></svg></span>Calendario descargable de fechas clave</li>
+          <li><span class="check"><svg><use href="#ok"/></svg></span>Aviso por correo 7 días antes de tu fecha</li>
+          <li><span class="check"><svg><use href="#ok"/></svg></span>10&nbsp;% de descuento en tu primer pedido</li>
+        </ul>
+      </div>
+
+      <div class="tarjeta" id="tarjeta">
+        <h2>Recibe tu recordatorio</h2>
+        <p class="sub">Solo toma 30 segundos</p>
+
+        <form id="formulario" action="gracias.html" method="post" novalidate>
+          <div class="campo">
+            <label for="nombre">Nombre</label>
+            <input id="nombre" name="nombre" type="text" placeholder="Laura" autocomplete="given-name" required>
+          </div>
+          <div class="campo">
+            <label for="correo">Correo electrónico</label>
+            <input id="correo" name="correo" type="email" placeholder="laura@correo.com" autocomplete="email" required>
+          </div>
+          <div class="campo">
+            <label for="fecha">Fecha que no quieres olvidar</label>
+            <input id="fecha" name="fecha" type="date" required>
+          </div>
+          <button class="btn" type="submit">QUIERO MI RECORDATORIO GRATIS</button>
+          <p class="legal">Sin spam. Puedes darte de baja cuando quieras.</p>
+        </form>
+
+        <div class="gracias" role="status" aria-live="polite">
+          <h2>¡Gracias, <span id="quien"></span>!</h2>
+          <p>Te enviamos el calendario a tu correo. En unos minutos recibirás tu código de 10&nbsp;% de descuento.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="confianza" aria-label="Por qué confiar en nosotros">
+    <div class="confianza-in">
+      <div class="item">
+        <span class="ico"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#flor-blanca"/></svg></span>
+        <div><strong>3 generaciones</strong><span>de experiencia floral</span></div>
+      </div>
+      <div class="item">
+        <span class="ico"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#flor-blanca"/></svg></span>
+        <div><strong>Flores frescas</strong><span>garantizadas 7 días</span></div>
+      </div>
+      <div class="item">
+        <span class="ico"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#flor-blanca"/></svg></span>
+        <div><strong>Entrega en 24 h</strong><span>a domicilio</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+  // Demostración: en producción el formulario envía los datos a tu CRM
+  // y redirige a gracias.html. Aquí solo se valida y se muestra el mensaje.
+  const form = document.getElementById('formulario');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    document.getElementById('quien').textContent = form.nombre.value.trim();
+    document.getElementById('tarjeta').classList.add('enviado');
+  });
+</script>
+</body>
+</html>
